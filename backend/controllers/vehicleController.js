@@ -5,6 +5,7 @@ const calculateRideDuration = require('../utils/calculateRideDuration');
 const addVehicle = async (req, res) => {
   try {
     const { name, capacityKg, tyres } = req.body;
+    console.log('Adding vehicle:', { name, capacityKg, tyres });
     if (!name || !capacityKg || !tyres) return res.status(400).json({ error: 'Missing fields' });
 
     const vehicle = await Vehicle.create({ name, capacityKg, tyres });
