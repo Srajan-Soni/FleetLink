@@ -69,31 +69,31 @@ export default function SearchBook() {
           type="number"
           placeholder="Required Capacity (KG)"
           onChange={handleChange}
-          className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="p-2 border rounded-md  "
         />
         <input
           name="fromPincode"
           type="text"
           placeholder="From Pincode"
           onChange={handleChange}
-          className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="p-2 border rounded-md  "
         />
         <input
           name="toPincode"
           type="text"
           placeholder="To Pincode"
           onChange={handleChange}
-          className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="p-2 border rounded-md  "
         />
         <input
           name="startTime"
           type="datetime-local"
           onChange={handleChange}
-          className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="p-2 border rounded-md  "
         />
         <button
           onClick={handleSearch}
-          className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+          className="bg-green-600 cursor-pointer text-white py-2 px-4 rounded hover:bg-green-700 transition"
         >
           Search Availability
         </button>
@@ -115,7 +115,7 @@ export default function SearchBook() {
               <p> Estimated Duration: {vehicle.estimatedRideDurationHours} hrs</p>
               <button
                 onClick={() => handleBook(vehicle._id)}
-                className="mt-3 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700 transition"
+                className="mt-3 cursor-pointer bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700 transition"
               >
                 Book Now
               </button>

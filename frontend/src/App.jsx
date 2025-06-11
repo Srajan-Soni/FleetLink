@@ -5,6 +5,7 @@ import AddVehicle from './pages/AddVehicle';
 import SearchBook from './pages/SearchBook';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import BookingList from './pages/Bookings';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     children: [
       { path: 'add-vehicle', element: <AddVehicle /> },
       { path: 'search-book', element: <SearchBook /> },
+      { path: 'booking-list', element: <BookingList /> },
       { index: true, element: <AddVehicle /> }, 
     ],
   },

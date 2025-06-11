@@ -35,6 +35,19 @@ const Header = () => {
           >
             Search & Book
           </NavLink>
+
+            <NavLink
+            to="/booking-list"
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-md text-sm font-medium  ${
+                isActive
+                  ? 'bg-blue-600 text-white shadow'
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`
+            }
+          >
+            Bookings
+          </NavLink>
         </nav>
       </div>
     </header>
