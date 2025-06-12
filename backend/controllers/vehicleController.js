@@ -17,34 +17,26 @@ const addVehicle = async (req, res) => {
 
 const getAvailableVehicles = async (req, res) => {
   try {
-    const { capacityRequired, fromPincode, toPincode, startTime } = req.query;
+    const { fromPincode, toPincode, startTime, capacityRequired } = req.query;
 
     const rideDuration = calculateRideDuration(fromPincode, toPincode);
     const start = new Date(startTime);
     const end = new Date(start);
     end.setHours(start.getHours() + rideDuration);
 
-    const allVehicles = await Vehicle.find({ capacityKg: { $gte: Number(capacityRequired) } });
-
-    const conflictingBookings = await Booking.find({
+    const bookedVehicleIds = await Booking.find({
       startTime: { $lt: end },
       endTime: { $gt: start },
+    }).distinct("vehicleId");
+
+    const vehicles = await Vehicle.find({
+      _id: { $nin: bookedVehicleIds },
+      capacityKg: { $gte: capacityRequired },
     });
 
-    const bookedVehicleIds = conflictingBookings.map(b => b.vehicleId.toString());
-
-    const availableVehicles = allVehicles.filter(
-      v => !bookedVehicleIds.includes(v._id.toString())
-    );
-
-    const response = availableVehicles.map(v => ({
-      ...v.toObject(),
-      estimatedRideDurationHours: rideDuration,
-    }));
-
-    res.status(200).json(response);
+    res.status(200).json(vehicles);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: "Server error" });
   }
 };
 

@@ -1,6 +1,6 @@
-// tests/setupTestDB.js
+
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server-core');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let mongo;
 
@@ -10,15 +10,18 @@ beforeAll(async () => {
   await mongoose.connect(uri);
 });
 
-beforeEach(async () => {
+afterEach(async () => {
   const collections = await mongoose.connection.db.collections();
+
   for (let collection of collections) {
-    await collection.deleteMany();
+    await collection.deleteMany({});
   }
 });
 
 afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
-  await mongo.stop();
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.connection.dropDatabase();
+    await mongoose.connection.close();
+  }
+  if (mongo) await mongo.stop();
 });
